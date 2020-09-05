@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cesar", "Cesar.vcxproj", "{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}.Debug|x64.ActiveCfg = Debug|x64
+		{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}.Debug|x64.Build.0 = Debug|x64
+		{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}.Debug|x86.ActiveCfg = Debug|Win32
+		{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}.Debug|x86.Build.0 = Debug|Win32
+		{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}.Release|x64.ActiveCfg = Release|x64
+		{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}.Release|x64.Build.0 = Release|x64
+		{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}.Release|x86.ActiveCfg = Release|Win32
+		{BEF900D0-5CE9-40C2-9EF8-BD6D35B06175}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3193AC61-4059-40A5-806D-8EA73D3EDD4F}
+	EndGlobalSection
+EndGlobal
