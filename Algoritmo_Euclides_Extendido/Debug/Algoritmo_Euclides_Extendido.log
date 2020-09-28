@@ -1,0 +1,4 @@
+﻿  Algoritmo_Euclides_Extendido.cpp
+D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Algoritmo_Euclides_Extendido.cpp(82): warning C4172: devolución de dirección de la variable local o temporal: mcd
+D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Algoritmo_Euclides_Extendido.cpp(124): warning C4172: devolución de dirección de la variable local o temporal: r1
+  Algoritmo_Euclides_Extendido.vcxproj -> D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Debug\Algoritmo_Euclides_Extendido.exe

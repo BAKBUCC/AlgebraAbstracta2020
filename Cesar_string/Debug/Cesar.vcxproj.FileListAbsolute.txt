@@ -1,2 +1,4 @@
 D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Cesar\Debug\Cesar.exe
 D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Cesar\Debug\Cesar.pdb
+D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Cesar_string\Debug\Cesar.exe
+D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Cesar_string\Debug\Cesar.pdb

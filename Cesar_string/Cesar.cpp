@@ -6,22 +6,20 @@ using namespace std;
 using std::ostringstream; 
 
 
-string alf("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{-}_/,.");
+string alf("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789({-})_/,.");
 
-int modulo(int Zn, int num)
+
+//retornamos el modulo de num y Zn
+int modulo(int num, int Zn)
 {
-    if (num >= 0 && num < Zn)
+    int q = num / Zn;
+    int r = num - (q * Zn);
+    if (r < 0)
     {
-        return num;
+        q--;
+        r = num - (q * Zn);
     }
-    else if (num >= Zn)
-    {
-        return num - Zn * (num / Zn);
-    }
-    else if(numero < 0)
-    {
-        return num - Zn * ((num / Zn) - 1);
-    }
+    return r;
 }
 
 struct Cesar
@@ -33,12 +31,16 @@ struct Cesar
     string cifrar(string m);
     string descifrar(string m_c);
 private:
-    string alf="abcdefghijklmnopqrstuvwxyz";
-    int clave=1;
+    string alf;
+    int clave;
 };
 
+//cuando no mandan parametros al inicializar una clase Cesar
 Cesar::Cesar()
-    {}
+{
+    alf = "abcdefghijklmnopqrstuvwxyz";
+    clave = 1;
+}
 
 Cesar::Cesar(int clave)
     :clave(clave){}
@@ -49,30 +51,32 @@ Cesar::Cesar(string alf)
 Cesar::Cesar(string alf, int clave)
     :alf(alf),clave(clave){}
 
+//se cifra el mensaje "m" y lo retorna
 string Cesar::cifrar(string m)
 {
     ostringstream m_c;
 
     for (string::iterator i = m.begin(); i < m.end(); i++)
     {
-        int pos_alf = alf.find(*i);
+        int pos_alf = alf.find(*i);//retornamos la posición del caracter "*I" en el "alf"
         pos_alf += clave;
-        pos_alf = modulo(alf.size(), pos_alf);
+        pos_alf = modulo(pos_alf, alf.size());
         m_c << alf[pos_alf];
     }
 
     return m_c.str();
 }
 
+//se descifra el mensaje "m_c" y lo retorna
 string Cesar::descifrar(string m_c)
 {
     ostringstream m_d;
 
     for (string::iterator i = m_c.begin(); i < m_c.end(); i++)
     {
-        int pos_alf = alf.find(*i);
+        int pos_alf = alf.find(*i);//retornamos la posición del caracter "*I" en el "alf"
         pos_alf -= clave;
-        pos_alf = modulo(alf.size(), pos_alf);
+        pos_alf = modulo(pos_alf, alf.size());
         m_d << alf[pos_alf];
     }
 
@@ -96,3 +100,4 @@ int main()
 
     return 0;
 }
+

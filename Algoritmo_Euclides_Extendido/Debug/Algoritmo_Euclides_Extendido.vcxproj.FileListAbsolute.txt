@@ -1,0 +1,2 @@
+D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Debug\Algoritmo_Euclides_Extendido.exe
+D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Debug\Algoritmo_Euclides_Extendido.pdb
