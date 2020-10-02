@@ -65,7 +65,7 @@ inline int MCD_propuesto(int a, int b)
 //MCD_binario de procedencia china y muy bueno para calculos rapidos y grandes
 //puedes encontrarlo en el libro: Mora introduccion a la Teoria de Numeros
 //parte 2 capitulo 8 , pagina 163;
-int MCD_binario(int unsigned a, int b)
+int MCD_binario(int a, int b)
 {
     int g = 1;
     while (!modulo(a, 2) && !modulo(b, 2))
