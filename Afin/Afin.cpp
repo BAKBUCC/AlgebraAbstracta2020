@@ -8,7 +8,8 @@ using namespace std;
 using std::ostringstream;
 
 
-string alf("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789({-})_/,.");
+string alf("abcdefghijklmnopqrstuvwxyz().0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ,+-");//("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789({-})_/,.");
+
 
 
 //retornamos el modulo de num y Zn
@@ -129,6 +130,7 @@ Afin::Afin()
 Afin::Afin(string alf)
     : alf(alf) 
 {
+    cout << "alfabetos.size(): " << alf.size() << endl;
     generarClaves(a, b);
 }
 
@@ -142,7 +144,12 @@ void Afin::generarClaves(int& a, int& b)
     {
         a = generadorNumAleatorio(alf.size());
     } while (MCD_binario(a, alf.size()) != 1); //n y a son coprimos
-    b = generadorNumAleatorio(alf.size());//dentro de Zn
+    cout << "a: " << a << endl;
+    do
+    {
+        b = generadorNumAleatorio(alf.size());//dentro de Zn
+    } while (b == a);
+    cout << "b: " << b << endl;
 }
 
 //se cifra el mensaje "m" y lo retorna
@@ -169,10 +176,11 @@ string Afin::descifrar(string m_c)
     
     int* x = alg_ext_eucl_2(a, alf.size());// tenemos un array que contiene contine arr[0]=mcd, arr[1]=x arr[2]=y y cada uno es referido a mcd = a(x) + tam_alf(y)
     x++; // avanzamos a arr[1]=x quien es el inverso de a.
+    cout << "x: " << *x << endl;
 
     for (string::iterator i = m_c.begin(); i < m_c.end(); i++)
     {
-        int pos_alf = alf.find(*i);//retornamos la posición del caracter "*I" en el "alf"
+        int pos_alf = alf.find(*i);//retornamos la posición del caracter "*i" en el "alf"
         pos_alf -= b;
         pos_alf *= (*x);
         pos_alf = modulo(pos_alf, alf.size());
@@ -184,7 +192,7 @@ string Afin::descifrar(string m_c)
 
 int main()
 {
-
+    /*
     Afin emisor(alf);
     Afin receptor(emisor.a, emisor.b, alf);
 
@@ -192,10 +200,35 @@ int main()
     cout << "mensaje:"; getline(cin, mensaje);
 
     string mensaje_cifrado = emisor.cifrar(mensaje);
-    cout << mensaje_cifrado << endl;
+    cout << "\n\nMENSAJE CIFRADO :\n\"" << mensaje_cifrado << "\"" << endl;
 
     string mensaje_descifrado = receptor.descifrar(mensaje_cifrado);
-    cout << mensaje_descifrado << endl;
+    cout << "\n\nMENSAJE DESCIFRADO\n\"" << mensaje_descifrado << "\"" << endl;
+
+
+    //NUEVO MENSAJE
+
+    cout << "otro mensaje:"; getline(cin, mensaje);
+
+    mensaje_cifrado = emisor.cifrar(mensaje);
+    cout << "\n\nMENSAJE CIFRADO :\n\"" << mensaje_cifrado << "\"" << endl;
+
+    mensaje_descifrado = receptor.descifrar(mensaje_cifrado);
+    cout << "\n\nMENSAJE DESCIFRADO\n\"" << mensaje_descifrado << "\"" << endl;
+    */
+    Afin receptor(41, 33, alf);
+
+    string mensaje;
+    cout << "mensaje:"; getline(cin, mensaje);
+
+    string mensaje_descifrado = receptor.descifrar(mensaje);
+    cout << "\n\n1_MENSAJE DESCIFRADO\n\"" << mensaje_descifrado << "\"" << endl;
+
+    cout << "otro mensaje:"; getline(cin, mensaje);
+
+    mensaje_descifrado = receptor.descifrar(mensaje);
+    cout << "\n\n!2_MENSAJE DESCIFRADO\n\"" << mensaje_descifrado << "\"" << endl;
+
 
     return 0;
 }

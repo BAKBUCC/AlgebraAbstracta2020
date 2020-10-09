@@ -3,7 +3,7 @@
 using namespace std;
 
 //aqui le saco el modulo de num en base a zn, osea segun la teoria, saco su equivalente 
-int modulo(int num, int Zn)
+int modulo(const int& num, const int& Zn)
 {
     int q = num / Zn;
     int r = num - (q * Zn);

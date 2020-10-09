@@ -5,7 +5,7 @@ using namespace std;
 char alf[200] = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789({-})_/,.";
 
 //retornamos el modulo de num y Zn
-int modulo(int num, int Zn)
+int modular(const int& num, const int& Zn)
 {
 	int q = num / Zn;
 	int r = num - (q * Zn);
@@ -59,7 +59,7 @@ struct Cesar
 	char* descifrar(char* m_c);
 private:
 	char *ptr_alf;
-	int clave;
+	int clave, size_alf;
 };
 
 //cuando no mandan parametros al inicializar una clase Cesar
@@ -67,6 +67,7 @@ Cesar::Cesar()
 {
 	char alf[200] = "abcdefghijklmnopqrstuvwxyz";
 	ptr_alf = alf;
+	size_alf = size(ptr_alf);
 	clave = 1;
 }
 
@@ -75,31 +76,35 @@ Cesar::Cesar(int clave)
 {
 	char alf[200] = "abcdefghijklmnopqrstuvwxyz";
 	ptr_alf = alf;
+	size_alf = size(ptr_alf);
 }
 
 Cesar::Cesar(char* alf)
 	:ptr_alf(alf)
 {
 	clave = 1;
+	size_alf = size(ptr_alf);
 }
 
 Cesar::Cesar(char* alf, int clave)
-	:clave(clave),ptr_alf(alf){}
+	:clave(clave),ptr_alf(alf)
+{
+	size_alf = size(ptr_alf);
+}
 
 //se cifra el mensaje "m" y lo retorna
 char* Cesar::cifrar(char* m)
 {
 	char* m_c = m;
 
-	//guardo el tamanio del alfabeto "alf" y de el mensaje "m_c"
-	int size_alf = size(ptr_alf);
+	//guardo el tamanio del mensaje "m_c"
 	int size_m_c = size(m_c);
 
 	for (; *m; m_c++ ,m++)
 	{
 		int pos_alf = find(ptr_alf, m);
 		pos_alf += clave;
-		pos_alf = modulo(pos_alf, size_alf);
+		pos_alf = modular(pos_alf, size_alf);
 		*m_c = *(ptr_alf + pos_alf);
 	}
 	m_c -= size_m_c;  //vuelvo el puntero m_c a su comienzo
@@ -111,15 +116,14 @@ char* Cesar::descifrar(char* m_c)
 {
 	char* m_d=m_c;
 
-	//guardo el tamanio del alfabeto "alf" y de el mensaje "m_d"
-	int size_alf = size(ptr_alf);
+	//guardo el tamanio del mensaje "m_d"
 	int size_m_d = size(m_d);
 
 	for (; *m_c; m_c++, m_d++)
 	{
 		int pos_alf = find(ptr_alf, m_c);
 		pos_alf -= clave;
-		pos_alf = modulo(pos_alf, size_alf);
+		pos_alf = modular(pos_alf, size_alf);
 		*m_d = *(ptr_alf + pos_alf);//: *m_d = alf[ pos_alf ]
 	}
 	m_d -= size_m_d;  //vuelvo el puntero m_d a su comienzo

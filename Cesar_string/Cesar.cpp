@@ -10,7 +10,7 @@ string alf("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789({-})
 
 
 //retornamos el modulo de num y Zn
-int modulo(int num, int Zn)
+int modular(const int& num, const int& Zn)
 {
     int q = num / Zn;
     int r = num - (q * Zn);
@@ -32,24 +32,36 @@ struct Cesar
     string descifrar(string m_c);
 private:
     string alf;
-    int clave;
+    int clave, alf_size;
 };
 
 //cuando no mandan parametros al inicializar una clase Cesar
 Cesar::Cesar()
 {
     alf = "abcdefghijklmnopqrstuvwxyz";
+    alf_size = alf.size();
     clave = 1;
 }
 
 Cesar::Cesar(int clave)
-    :clave(clave){}
+    :clave(clave) 
+{
+    alf = "abcdefghijklmnopqrstuvwxyz";
+    alf_size = alf.size();
+}
 
 Cesar::Cesar(string alf)
-    :alf(alf){}
+    :alf(alf)
+{
+    alf_size = alf.size();
+    clave = 1;
+}
 
 Cesar::Cesar(string alf, int clave)
-    :alf(alf),clave(clave){}
+    :alf(alf),clave(clave)
+{
+    alf_size = alf.size();
+}
 
 //se cifra el mensaje "m" y lo retorna
 string Cesar::cifrar(string m)
@@ -60,7 +72,7 @@ string Cesar::cifrar(string m)
     {
         int pos_alf = alf.find(*i);//retornamos la posición del caracter "*I" en el "alf"
         pos_alf += clave;
-        pos_alf = modulo(pos_alf, alf.size());
+        pos_alf = modular(pos_alf, alf_size);
         m_c << alf[pos_alf];
     }
 
@@ -76,7 +88,7 @@ string Cesar::descifrar(string m_c)
     {
         int pos_alf = alf.find(*i);//retornamos la posición del caracter "*I" en el "alf"
         pos_alf -= clave;
-        pos_alf = modulo(pos_alf, alf.size());
+        pos_alf = modular(pos_alf, alf_size);
         m_d << alf[pos_alf];
     }
 

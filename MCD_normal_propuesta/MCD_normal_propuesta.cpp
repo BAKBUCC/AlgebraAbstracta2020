@@ -3,14 +3,14 @@
 using namespace std;
 
 //saco el valor absoluto
-inline int valorAbsoluto(int a)
+inline int valorAbsoluto(int &a)
 {
     if (a < 0) { return -a; }
     return a;
 }
 
 //retorno el modulo/equivalente de num en Zn
-inline int modulo(int num, int Zn)
+inline int modular(const int &num, const int &Zn)
 {
     int q = num / Zn;
     int r = num - (q * Zn);
@@ -25,12 +25,12 @@ inline int modulo(int num, int Zn)
 //MCD de euler
 inline int MCD(int a, int b)
 {
-    int r = modulo(a, b);
+    int r = modular(a, b);
     while (r > 0)
     {
         a = b;
         b = r;
-        r = modulo(a, b);
+        r = modular(a, b);
     }
     return b;
 }
@@ -39,8 +39,8 @@ inline int MCD(int a, int b)
 //multiplicando
 inline int MCD_propuesto(int a, int b)
 {
-    int mcd = 1;
-    while (!modulo(a, 2) && !modulo(b, 2))
+    int mcd = 1, dos = 2;
+    while (!modular(a, dos) && !modular(b, dos))
     {
         mcd *= 2;
         a /= 2; b /= 2;
@@ -48,7 +48,7 @@ inline int MCD_propuesto(int a, int b)
     int i = 3;
     while (i < a && i < b)
     {
-        if (modulo(a, i) == 0 && modulo(b, i) == 0)
+        if (modular(a, i) == 0 && modular(b, i) == 0)
         {
             mcd *= i;
             a /= i; b /= i;
@@ -67,19 +67,20 @@ inline int MCD_propuesto(int a, int b)
 //parte 2 capitulo 8 , pagina 163;
 int MCD_binario(int a, int b)
 {
-    int g = 1;
-    while (!modulo(a, 2) && !modulo(b, 2))
+    int g = 1, dos = 2;
+    while (!modular(a, dos) && !modular(b, dos))
     {
         a /= 2; b /= 2;
         g *= 2;
     }
     while (a)
     {
-        if (!modulo(a, 2)) { a /= 2; }
-        else if (!modulo(b, 2)) { b /= 2; }
+        if (!modular(a, dos)) { a /= 2; }
+        else if (!modular(b, dos)) { b /= 2; }
         else
         {
-            int t = valorAbsoluto(a - b) / 2;
+            int c = a - b;
+            int t = valorAbsoluto(c) / 2;
             if (a >= b) { a = t; }
             else { b = t; }
         }

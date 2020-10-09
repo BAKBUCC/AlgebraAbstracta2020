@@ -10,7 +10,7 @@ inline int valorAbsoluto(int a)
 }
 
 //retorno el modulo/equivalente de num en Zn
-inline int modulo(int num, int Zn) 
+inline int modulo(const int& num, const int& Zn) 
 {
     int q = num / Zn;
     int r = num - (q * Zn);
@@ -25,16 +25,16 @@ inline int modulo(int num, int Zn)
 //MCD_binario de procedencia china y muy bueno para calculos rapidos y grandes
 int MCD_binario(int a, int b)
 {
-    int g = 1;
-    while (!modulo(a, 2) && !modulo(b, 2))
+    int g = 1, dos = 2;
+    while (!modulo(a, dos) && !modulo(b, dos))
     {
         a /= 2; b /= 2;
         g *= 2;
     }
     while (a)
     {
-        if (!modulo(a, 2)) { a /= 2; }
-        else if (!modulo(b, 2)) { b /= 2; }
+        if (!modulo(a, dos)) { a /= 2; }
+        else if (!modulo(b, dos)) { b /= 2; }
         else
         {
             int t = valorAbsoluto(a - b) / 2;
@@ -122,6 +122,53 @@ int* alg_ext_eucl_2(int a, int b)
     }
     delete[]q;
     return &r1;//sino , solo devolverá el mcd que está en r1
+}
+
+//################FORMA DEFINITIVA################
+inline int* alg_ext_eucl(int d, int& a, int& b, int* q, int& i)
+{
+    int s1 = 1, s2 = 0;
+    int t1 = 0, t2 = 1;
+
+    while (i--) // i iterara hasta que acabe el array
+    {
+        int s = s1 - (*q) * s2;
+        s1 = s2; s2 = s;
+
+        int t = t1 - (*q) * t2;
+        t1 = t2; t2 = t;
+
+        q++;
+    }
+    return &s1;
+}
+
+int* inverso_a(int& a, int& b)
+{
+    int r1 = valorAbsoluto(a), r2 = valorAbsoluto(b);
+
+    // este array de q guardara los cocientes de r1/r2
+    int* q = new int[50];
+    int i = 0;//este indice contara las veces que itera hasta que r2 sea 0
+
+    while (r2 > 0)
+    {
+        *q = r1 / r2;
+
+        int r = r1 - (*q) * r2;
+        r1 = r2; r2 = r;
+
+        q++;
+        i++;
+    }
+    q -= i;  // volvemos al array "q" a sus inicios
+
+    if (r1 == 1)  // d==1
+    {
+        int* inv_a = alg_ext_eucl(r1, a, b, q, i);
+        return inv_a;
+    }
+    delete[]q;
 }
 
 int main()

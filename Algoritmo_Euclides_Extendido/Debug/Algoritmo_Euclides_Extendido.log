@@ -1,4 +1,6 @@
 ﻿  Algoritmo_Euclides_Extendido.cpp
 D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Algoritmo_Euclides_Extendido.cpp(82): warning C4172: devolución de dirección de la variable local o temporal: mcd
 D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Algoritmo_Euclides_Extendido.cpp(124): warning C4172: devolución de dirección de la variable local o temporal: r1
+D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Algoritmo_Euclides_Extendido.cpp(172): warning C4715: 'inverso_a': no todas las rutas de acceso de control devuelven un valor
+D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Algoritmo_Euclides_Extendido.cpp(143): warning C4172: devolución de dirección de la variable local o temporal: s1
   Algoritmo_Euclides_Extendido.vcxproj -> D:\IV_SEMESTRE\Algebra_Abstracta\Programación\Algoritmo_Euclides_Extendido\Debug\Algoritmo_Euclides_Extendido.exe
