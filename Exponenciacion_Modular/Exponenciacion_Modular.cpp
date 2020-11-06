@@ -2,11 +2,11 @@
 
 using namespace std;
 
-//aqui le saco el modulo de num en base a Zn, osea segun la teoria, saco su equivalente ;
-int modular(const int& num, const int& Zn) //estoy optimizando la función modular haciendo que los parametros sean apodos de las variables;
-{                                          //y no ocupen más espacio en la memoria; le pongo const para que por si acaso no sean cambiados las variables;
-    int q = num / Zn;
-    int r = num - (q * Zn);
+template <class T>
+T modular(T num, T Zn)
+{
+    T q = num / Zn;
+    T r = num - (q * Zn);
     if (r < 0)
     {
         q--;
@@ -15,26 +15,106 @@ int modular(const int& num, const int& Zn) //estoy optimizando la función modul
     return r;
 }
 
-int exponenciacionModular(int base, int exponente, int modulo)
+template <class T>
+T Algoritmo_1(T a, T p, T n)
 {
-    int resultado = 1, dos = 2;
-    int cuadrado = modular(base, modulo);
-    while (exponente)
+    T r = 1;
+    for (T i = 1; i < p; i++)
     {
-        /*aqui creo una variable "aux" para que pueda mandar a la funcion modular una direccion de memoria*/int aux = cuadrado * resultado;
-        if (modular(exponente, dos)) { resultado = modular(aux, modulo); }
-        exponente /= 2;
-        /*aqui hago lo mismo de arriba pero con otros valores que se multiplican----------------------------->*/aux = cuadrado * cuadrado;
-        cuadrado = modular(aux, modulo);
+        r = modular<T>(modular<T>(r, n) * modular<T>(a, n), n);
     }
-    return resultado;
+    return r;
+}
+
+template <class T>
+T Algoritmo_2_libre(T g, T A, T N)
+{
+    T a = g, b = 1;
+    T dos = 2;
+    while (A > 0)
+    {
+        if (modular<T>(A, dos)) { b = modular<T>(modular<T>(b, N) * modular<T>(a, N), N); }
+        a = modular<T>(modular<T>(a, N) * modular<T>(a, N), N);
+        A = A / 2;
+    }
+    return b;
+}
+
+template <class T>
+T Algoritmo_2_bit(T g, T A, T N)   //me falta aplicar bitwise
+{
+    T a = g, b = 1;
+    T dos = 2;
+    while (A > 0)
+    {
+        if (modular<T>(A, dos)) { b = modular<T>(modular<T>(b, N) * modular<T>(a, N), N); }
+        a = modular<T>(modular<T>(a, N) * modular<T>(a, N), N);
+        A = A / 2;
+    }
+    return b;
+}
+
+
+template <class T>
+T Algoritmo_3()
+{
+    int cant;
+    cout << "# de ecuaciones: "; cin >> cant;
+    //aun me falta esto
+    return;
+}
+
+template <class T>
+T Algoritmo_4(T a, T p, T n)
+{
+    if (p == 0) { return 1; }
+    T dos = 2;
+    if (!modular(p, dos))
+    {
+        T t = Algoritmo_4(a, p / 2, n);
+        return modular<T>(modular<T>(t, n) * modular<T>(t, n), n);
+    }
+    T t = Algoritmo_4(a, (p - 1) / 2, n);
+    return modular<T>(modular<T>(a, n) * modular<T>(modular<T>(t, n) * modular<T>(t, n), n), n);
+}
+
+
+
+template <class T>
+T Algoritmo_5(T a, T b, T n)
+{
+    T c, d;
+    c = 0, d = 1;
+    //digamos que tenemos la lista bkbk-1...b0
+    for (;;)//de i=0 a k
+    {
+        c *= 2;
+        if ()//*iterador==1?
+        {
+            c += 1;
+            d = modular<T>(modular<T>(d, n) * modular<T>(a, n), n);
+        }
+        a = modular<T>(modular<T>(a, n) * modular<T>(a, n), n);
+    }
+    return d;
+}
+
+template <class T>
+T Algoritmo_6(T a, T b, T n)
+{
+    T exp = 1;
+    T x = modular<T>(a, n);
+    T dos = 2;
+    while (b > 0)
+    {
+        if (modular(b, 2)) { exp = modular<T>(modular<T>(exp, n) * modular<T>(x, n), n); }
+        x = modular<T>(modular<T>(x, n) * modular<T>(x, n), n);
+        b /= 2;
+    }
+    return exp;
 }
 
 int main()
 {
-    int base, exponente, modulo;
-    cout << "base: "; cin >> base; cout << "\nexponente: "; cin >> exponente; cout << "\nmodulo: "; cin >> modulo;
-    cout << "\n\n" << base << "^" << exponente << " (modulo" << modulo << ")  =  " << exponenciacionModular(base, exponente, modulo) << endl;
-    return 0;
+    std::cout << "Hello World!\n";
 }
-

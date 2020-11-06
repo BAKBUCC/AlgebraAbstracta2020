@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{6eaf2552-eb33-4e0c-a856-959816256618}</ProjectGuid>
+    <ProjectGuid>{07695882-d8a4-4297-b7c9-6ee4e3d2f926}</ProjectGuid>
     <RootNamespace>ExponenciacionModular</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
