@@ -11,7 +11,7 @@ using namespace NTL;
 
 using std::ostringstream;
 
-string alf("abcdefghijklmnopqrstuvwxyz().0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ,+-");
+string alf("abcdefghijklmnopqrstuvwxyz().0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ,+-[]");
 
 template<class T>
 inline void string_to_int(string bloque, T& num)
@@ -155,7 +155,7 @@ template <class T>
 struct RSA
 {
     T e, N;
-    RSA(int bits); //del receptor
+    RSA();//int bits); //del receptor
     RSA(T N, T e);  //del emisor
 
     string cifrar(string m);
@@ -182,14 +182,14 @@ inline T limiteInferior(int bits)
 }
 
 template <class T>
-RSA<T>::RSA(int bits)
+RSA<T>::RSA()//int bits)
 {
-    ///*
+    /*
     LI = limiteInferior<T>(bits - 1);
     cout << "bits: " << bits - 1 << "#LI: " << LI << endl;
     LS = (LI << 1) - 1;
     cout << "bits: " << bits << "#LS: LI*2 - 1 " << LS << endl;
-    //*/
+    */
     generarClaves();
 }
 
@@ -268,28 +268,25 @@ void RSA<T>::generarClaves()
     cout << "Rango: " << Rango << endl;
     //cin >> p; cin >> q; cin >> e; cin >> d;
 
-    ///*
+    /*
     p = generadorNumAleatorio<T>(LS - LI);
     p += LI;
     do
     {
         p++;
     } while(test_primalidad<T>(p, 100)==false);
-    //*/
-    //cin>>p;
-    cout << "p: " << p << endl;
+    */
+    cout << "p: "; cin >> p; cout << p << endl;
 
-    ///*
+    /*
     q = generadorNumAleatorio<T>(LS - LI);
     q += LI;
     do
     {
         q++;
     } while(test_primalidad<T>(q, 100)==false);
-    //*/
-
-    //cin>>q;
-    cout << "q: " << q << endl;
+    */
+    cout << "q: "; cin >> q; cout << q << endl;
 
     N = p * q;
     cout << "   N: " << N << endl;
@@ -297,30 +294,33 @@ void RSA<T>::generarClaves()
     phiN = (p - 1) * (q - 1);
     cout << "phiN: " << phiN << endl;
 
-    ///*
+    /*
     do
     {
         e = generadorNumAleatorio<T>(phiN);
     } while (MCD_binario<T>(e, phiN) != 1);
-    //*/
+    */
 
-    //cout << "e: "; cin >> e;
+    cout << "e: "; cin >> e;
     cout << "e: " << e << endl;
-    d = inversa<T>(e, phiN);
-    //cin >> d;
+    //d = inversa<T>(e, phiN);
+    cin >> d;
     cout << "d: " << d << endl;
+}
+
+template <class T>
+string numberToString(T num)
+{
+    stringstream buffer;
+    buffer << num;
+    return buffer.str();
 }
 
 template <class T>
 long lenOfNumber(T num)
 {
-    long len = 0;
-    while (num > 0)
-    {
-        num = num / 10;
-        len++;
-    }
-    return len;
+    string number = numberToString<T>(num);
+    return number.size();
 }
 
 /*
@@ -346,14 +346,6 @@ string numberToString(T num)
     return stri;
 }
 */
-
-template <class T>
-string numberToString(T num)
-{
-    stringstream buffer;
-    buffer << num;
-    return buffer.str();
-}
 
 template <class T>
 string RSA<T>::llenado(string m)
@@ -457,6 +449,7 @@ string RSA<T>::descifrar(string m_c)
 {
     ostringstream m_d, bloque, newBloque;
     int bloque_size = lenOfNumber(N) - 1;
+    cout << bloque_size << endl;
 
     for (string::iterator i = m_c.begin(); i < m_c.end(); i++, --bloque_size)
     {
@@ -480,7 +473,7 @@ string RSA<T>::descifrar(string m_c)
             string bloque_str = numberToString<T>(bloque_T);
             int ceros_faltantes =  (lenOfNumber(N) - 1) - bloque_str.size();
 
-            while(ceros_faltantes--){ newBloque << "0"; }
+            while(ceros_faltantes>0){ newBloque << "0"; ceros_faltantes--;}
 
             newBloque << bloque_str;
 
@@ -501,7 +494,7 @@ string RSA<T>::descifrar(string m_c)
 
 int main()
 {
-    ///*
+    /*
     int bits; cout<< "#bits: "; cin >> bits;
 
     RSA< ZZ > receptor(bits);
@@ -544,7 +537,7 @@ int main()
     }
     */
 
-    /*
+    ///*
     //###########CIFRAR###########
     int i; cin >> i;
     while (i--)
@@ -567,7 +560,7 @@ int main()
         string mensaje_cifrado = emisor.cifrar(mensaje);
         cout << "\n\nMENSAJE CIFRADO :\n\"" << mensaje_cifrado << "\"" << endl;
     }
-    */
+    //*/
 
     return 0;
 }
